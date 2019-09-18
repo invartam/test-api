@@ -1,0 +1,41 @@
+swagger: "2.0"
+
+info:
+  title: Test API
+  description: A test API
+  version: 0.0.1
+
+basePath: /
+
+securityDefinitions:
+  iam_benjy_lu:
+    flow: implicit
+    type: oauth2
+    x-tokenInfoUrl: https://iam.benjy.lu/auth/realms/benjy.lu/protocol/openid-connect/userinfo
+    authorizationUrl: https://iam.benjy.lu/auth/realms/benjy.lu/protocol/openid-connect/auth
+    scopes:
+      test:read: "Access read operations"
+      test:write: "Access write operations"
+
+security:
+  - iam_benjy_lu:
+      - test:read
+      - test:write
+
+tags:
+  - name: Test
+    description: ""
+
+paths:
+
+  /tests:
+    get:
+      tags:
+        - Test
+      summary: Get test object
+      operationId: test_api.tests.get
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
